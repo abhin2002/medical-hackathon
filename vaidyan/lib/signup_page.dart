@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:path/path.dart';
+
 
 
 class SignUpPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   File? _image;
+   String? _pdfPath;
 
   Future _getImage(ImageSource source) async {
     final imagePicker = ImagePicker();
@@ -29,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _showImageSourceOptions() {
     showModalBottomSheet(
-      context: context,
+      context: context as BuildContext,
       builder: (BuildContext context) {
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -60,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        // title: const Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -181,22 +184,7 @@ Row(
     // Upload PDF
     ElevatedButton(
   onPressed: () async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    if(result != null) {
-      PlatformFile file = result.files.first;
-
-      print(file.name);
-      print(file.bytes);
-      print(file.size);
-      print(file.extension);
-      print(file.path);
-    } else {
-      // User canceled the picker
-    }
+    print("hi");
   },
   child: const Text('Upload PDF'),
 ),
