@@ -1,11 +1,10 @@
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-
-
+import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -16,8 +15,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   File? _image;
-   // ignore: unused_field
-   String? _pdfPath;
+  String? _pdfPath;
 
   Future _getImage(ImageSource source) async {
     final imagePicker = ImagePicker();
@@ -58,6 +56,44 @@ class _SignUpPageState extends State<SignUpPage> {
       },
     );
   }
+
+  void _signUp() async {
+    // Prepare SignUp data
+    final signUpData = {
+      'email': _emailController.text,
+      'password': _passwordController.text,
+      'confirm_password': _confirmPasswordController.text,
+      'mobile_number': _mobileNumberController.text,
+      'facilities': _facilitiesController.text,
+    };
+
+    // Make SignUp API call
+    final response = await http.post(
+      Uri.parse('http://127.0.0.1:8000/signup'), // Replace with your API endpoint
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(signUpData),
+    );
+
+    if (response.statusCode == 200) {
+      // SignUp successful
+      // You can handle the response accordingly
+      print("SignUp successful");
+    } else {
+      // SignUp failed
+      // You can handle errors or show a message to the user
+      print("SignUp failed");
+    }
+  }
+
+  // Controllers for text fields
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _mobileNumberController = TextEditingController();
+  final TextEditingController _facilitiesController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
