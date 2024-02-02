@@ -218,29 +218,11 @@ Row(
     ),
     const SizedBox(width: 100.0),
     // Upload PDF
-//     ElevatedButton(
-//   onPressed: () async {
-//     FilePickerResult? result = await FilePicker.platform.pickFiles(
-//       type: FileType.custom,
-//       allowedExtensions: ['pdf'],
-//     );
+    ElevatedButton(
+  onPressed: _getOtp,
+  child: const Text('S'),
 
-//     if(result != null) {
-//       PlatformFile file = result.files.first;
-
-//       print(file.name);
-//       print(file.bytes);
-//       print(file.size);
-//       print(file.extension);
-//       print(file.path);
-
-//       // TODO: Upload the file
-//     } else {
-//       // User canceled the picker
-//     }
-//   },
-//   child: const Text('Upload PDF'),
-// )
+)
 
 
     
@@ -253,4 +235,43 @@ Row(
       ),
     );
   }
+
+  void _getOtp() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Enter OTP'),
+        content: PinCodeTextField(
+          appContext: context,
+          length: 5,
+          obscureText: false,
+          animationType: AnimationType.fade,
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box,
+            borderRadius: BorderRadius.circular(5),
+            fieldHeight: 50,
+            fieldWidth: 40,
+          ),
+          animationDuration: Duration(milliseconds: 300),
+          onChanged: (value) {
+            // Put your OTP validation logic here
+          },
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Submit'),
+            onPressed: () {
+              // Put your OTP submission logic here
+              Navigator.of(context).pop();
+              // Call the signUp function after OTP submission
+              _signUp();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 }
