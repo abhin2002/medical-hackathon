@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'signup_page.dart';
+import 'test_page.dart'; // Import the test page
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key});
@@ -54,6 +55,11 @@ Widget build(BuildContext context) {
 
               print('Email: $email');
               print('Password: $password');
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TestPage()),
+                );
             },
             child: const Text('Login'),
           ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class HelperPage extends StatefulWidget {
   const HelperPage({Key? key}) : super(key: key);
@@ -123,15 +125,30 @@ class _HelperPageState extends State<HelperPage> {
     }
   }
 
-  void _sendMessage(String message) {
-    print("User: $message");
-    _receiveMessage("User: $message");
-    _receiveMessage("Response: Thank you for your message!");
+  void _sendMessage(String message) async {
+  print("User: $message");
+  _receiveMessage("User: $message");
 
-    messageController.clear();
+  // Send a POST request to the FastAPI endpoint
+  final response = await http.post(
+    Uri.parse('http://192.168.0.205:8000/answer'),
+    body: {'text': message},
+  );
+
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    String answer = data['answer'];
+    _receiveMessage("Response: $answer");
+  } else {
+    _receiveMessage("Error: Unable to get a response");
   }
 
+  messageController.clear();
+}
+
+
   void _receiveMessage(String message) {
+    print("response : $message");
     setState(() {
       chatMessages.add(message);
     });
