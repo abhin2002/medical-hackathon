@@ -10,7 +10,7 @@ tokenizer = Tokenizer.from_pretrained(model_id)
 image = Image.open(r'C:\Users\itsab\Desktop\hackthon\huggingFace\dead.jpg')
 enc_image = model.encode_image(image)
 
-prompt = "You are an emergency assistant and you have to give detail on this accident situtaion in the image."
+prompt = "You are an emergency assistant and you have to give detail on this accident situtaion in the image for a first aid."
 response = model.answer_question(enc_image,prompt, tokenizer)
 
 print(response)
