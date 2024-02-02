@@ -48,6 +48,6 @@ if __name__ == "__main__":
     print("Building RAG pipeline...")
     start = time.time()
     # Build the RAG pipeline
-    qa = build_rag_pipeline("data/first aid.pdf")
+    qa = build_rag_pipeline(r"C:\NOBLEAUSTINE\GitWorld\vAIdyan-medical-hackathon\rag\data\first aid.pdf")
     print("Building took {0}s".format(time.time()-start))
     print("Done building RAG pipeline")
