@@ -1,7 +1,7 @@
 from transformers import AutoModelForCausalLM, CodeGenTokenizerFast as Tokenizer
 from PIL import Image
 
-from ..rag.rag import load_rag_pipeline, answer_question
+from rag import load_rag_pipeline, answer_question
 
 model_id = "vikhyatk/moondream1"
 model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True)

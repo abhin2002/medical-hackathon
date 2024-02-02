@@ -1,1 +1,5 @@
 .env
+rag/__pycache__/*
+
+
+rag/__pycache__/rag.cpython-310.pyc

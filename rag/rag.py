@@ -49,6 +49,7 @@ if __name__ == "__main__":
     start = time.time()
     # Answer a question
     ans = answer_question("What is the first aid for a heart attack?",qa)
+    print(ans)
     print(ans['result'])
     print("Answering took {0}s".format(time.time()-start))
     print("Done answering question")
