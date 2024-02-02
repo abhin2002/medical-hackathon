@@ -42,7 +42,10 @@ dependencies:
   pin_code_fields: ^8.0.1
   geolocator: 10.1.0
   flutter_document_picker: ^5.2.3
-
+  flutter_sound: ^9.2.13
+  record: ^5.0.4
+  speech_to_text: ^6.6.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
