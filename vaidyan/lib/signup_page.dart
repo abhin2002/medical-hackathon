@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:path/path.dart';
+
 
 
 
@@ -17,6 +16,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   File? _image;
+   // ignore: unused_field
    String? _pdfPath;
 
   Future _getImage(ImageSource source) async {
@@ -182,12 +182,30 @@ Row(
     ),
     const SizedBox(width: 100.0),
     // Upload PDF
-    ElevatedButton(
-  onPressed: () async {
-    print("hi");
-  },
-  child: const Text('Upload PDF'),
-),
+//     ElevatedButton(
+//   onPressed: () async {
+//     FilePickerResult? result = await FilePicker.platform.pickFiles(
+//       type: FileType.custom,
+//       allowedExtensions: ['pdf'],
+//     );
+
+//     if(result != null) {
+//       PlatformFile file = result.files.first;
+
+//       print(file.name);
+//       print(file.bytes);
+//       print(file.size);
+//       print(file.extension);
+//       print(file.path);
+
+//       // TODO: Upload the file
+//     } else {
+//       // User canceled the picker
+//     }
+//   },
+//   child: const Text('Upload PDF'),
+// )
+
 
     
   ],
