@@ -220,7 +220,7 @@ Row(
     // Upload PDF
     ElevatedButton(
   onPressed: _getOtp,
-  child: const Text('S'),
+  child: const Text('Get OTP'),
 
 )
 
