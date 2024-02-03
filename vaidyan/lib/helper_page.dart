@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 
 class HelperPage extends StatefulWidget {
@@ -124,15 +126,39 @@ class _HelperPageState extends State<HelperPage> {
     }
   }
 
-  void _sendMessage(String message) {
-    print("User: $message");
-    _receiveMessage("User: $message");
-    _receiveMessage("Response: Thank you for your message!");
+  void _sendMessage(String message) async {
+  print("User: $message");
+  _receiveMessage("User: $message");
 
-    messageController.clear();
+  // Replace the API call with the TestPage's API call
+  try {
+    String apiResponse = await _callAnswerAPI(message);
+    _receiveMessage("Response: $apiResponse");
+  } catch (e) {
+    print('Error calling answer API: $e');
+    _receiveMessage("Error: Unable to get a response");
   }
 
+  messageController.clear();
+}
+
+Future<String> _callAnswerAPI(String text) async {
+  final response = await http.post(
+    Uri.parse('https://3f5983c2-175c-44cf-8f1d-d987a1c8d91b-00-254vq5qtc47zr.pike.replit.dev/devRAG'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: json.encode({"query": text}),
+  );
+
+  final Map<String, dynamic> data = json.decode(response.body);
+  return data['output'];
+}
+
+
+
   void _receiveMessage(String message) {
+    print("response : $message");
     setState(() {
       chatMessages.add(message);
     });
