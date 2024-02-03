@@ -129,22 +129,31 @@ class _HelperPageState extends State<HelperPage> {
   print("User: $message");
   _receiveMessage("User: $message");
 
-  // Send a POST request to the FastAPI endpoint
-  final response = await http.post(
-    Uri.parse('http://192.168.0.205:8000/answer'),
-    body: {'text': message},
-  );
-
-  if (response.statusCode == 200) {
-    final Map<String, dynamic> data = json.decode(response.body);
-    String answer = data['answer'];
-    _receiveMessage("Response: $answer");
-  } else {
+  // Replace the API call with the TestPage's API call
+  try {
+    String apiResponse = await _callAnswerAPI(message);
+    _receiveMessage("Response: $apiResponse");
+  } catch (e) {
+    print('Error calling answer API: $e');
     _receiveMessage("Error: Unable to get a response");
   }
 
   messageController.clear();
 }
+
+Future<String> _callAnswerAPI(String text) async {
+  final response = await http.post(
+    Uri.parse('https://3f5983c2-175c-44cf-8f1d-d987a1c8d91b-00-254vq5qtc47zr.pike.replit.dev/devRAG'),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: json.encode({"query": text}),
+  );
+
+  final Map<String, dynamic> data = json.decode(response.body);
+  return data['output'];
+}
+
 
 
   void _receiveMessage(String message) {
